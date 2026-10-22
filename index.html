@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#101126">
-    <title>Welcome back | Sign in</title>
+    <meta name="theme-color" content="#090916">
+    <title>A Special Hello for Shivam</title>
     <style>
         :root {
             color-scheme: dark;
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #101126;
-            color: #f7f7ff;
+            --pink: #ff8ecb;
+            --lavender: #b7a0ff;
+            --cyan: #83e8ff;
         }
 
         * { box-sizing: border-box; }
@@ -21,123 +22,156 @@
             display: grid;
             place-items: center;
             overflow: hidden;
-            padding: 24px;
-            background: radial-gradient(ellipse at 15% 15%, #29235a 0, transparent 38%),
-                        radial-gradient(ellipse at 85% 85%, #173e50 0, transparent 36%), #101126;
+            color: #fff;
+            background: #090916;
         }
 
-        .orb {
-            position: fixed;
-            z-index: 0;
-            width: 260px;
+        .scene {
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            min-height: 100vh;
+            width: 100%;
+            place-items: center;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 50% 110%, rgba(102, 54, 173, .35), transparent 55%),
+                radial-gradient(ellipse at 12% 15%, rgba(37, 112, 151, .16), transparent 40%),
+                #090916;
+        }
+
+        .scene::before, .scene::after {
+            position: absolute;
+            z-index: -1;
+            width: min(75vw, 720px);
+            aspect-ratio: 1;
+            border: 1px solid rgba(193, 164, 255, .13);
+            border-radius: 50%;
+            content: "";
+            animation: orbit 32s linear infinite;
+        }
+
+        .scene::after {
+            width: min(58vw, 540px);
+            border-color: rgba(131, 232, 255, .12);
+            animation-duration: 24s;
+            animation-direction: reverse;
+        }
+
+        .glow {
+            position: absolute;
+            z-index: -1;
+            width: min(62vw, 600px);
             aspect-ratio: 1;
             border-radius: 50%;
-            filter: blur(1px);
-            opacity: .6;
-            pointer-events: none;
-            animation: float 9s ease-in-out infinite;
+            background: conic-gradient(from 30deg, transparent, rgba(255, 142, 203, .26), transparent 38%, rgba(131, 232, 255, .2), transparent 72%);
+            filter: blur(70px);
+            animation: breathe 8s ease-in-out infinite alternate;
         }
 
-        .orb-one { top: -105px; right: 12%; background: linear-gradient(135deg, #a855f7, #5b5de6); }
-        .orb-two { bottom: -140px; left: 8%; width: 330px; background: linear-gradient(135deg, #15c6b5, #386be8); animation-delay: -4s; }
-
-        .login-card {
-            position: relative;
-            z-index: 1;
-            width: min(100%, 440px);
-            padding: 44px;
-            border: 1px solid rgba(255, 255, 255, .14);
-            border-radius: 24px;
-            background: rgba(21, 22, 45, .76);
-            box-shadow: 0 24px 80px rgba(0, 0, 0, .38), inset 0 1px rgba(255, 255, 255, .08);
-            backdrop-filter: blur(18px);
-            animation: arrive .75s cubic-bezier(.2, .8, .2, 1) both;
-        }
-
-        .brand-mark {
-            display: grid;
-            width: 48px;
-            height: 48px;
-            place-items: center;
-            margin-bottom: 28px;
-            border-radius: 15px;
-            color: white;
-            font-size: 22px;
-            background: linear-gradient(135deg, #a855f7, #6366f1 60%, #22d3c5);
-            box-shadow: 0 8px 24px rgba(119, 91, 245, .35);
-        }
-
-        h1 { margin: 0; font-size: clamp(1.8rem, 5vw, 2.15rem); letter-spacing: -.045em; }
-        .intro { margin: 9px 0 30px; color: #a8abc6; font-size: .96rem; }
-
-        .field { margin-bottom: 19px; }
-        label { display: block; margin-bottom: 9px; color: #e5e6f2; font-size: .86rem; font-weight: 600; }
-
-        .input-wrap { position: relative; }
-        input {
-            width: 100%;
-            height: 52px;
-            padding: 0 15px;
-            border: 1px solid rgba(207, 211, 245, .16);
-            border-radius: 12px;
-            outline: none;
-            color: #fff;
-            background: rgba(8, 10, 27, .46);
-            font: inherit;
-            transition: border-color .2s, box-shadow .2s, background .2s;
-        }
-
-        input::placeholder { color: #737791; }
-        input:focus { border-color: #9b7bff; background: rgba(8, 10, 27, .72); box-shadow: 0 0 0 4px rgba(139, 103, 255, .14); }
-        .password-input { padding-right: 68px; }
-
-        .toggle-password {
+        .stars {
             position: absolute;
-            top: 50%;
-            right: 13px;
-            padding: 5px;
-            transform: translateY(-50%);
-            border: 0;
-            color: #a9abc4;
-            background: transparent;
-            font: inherit;
-            font-size: .78rem;
-            cursor: pointer;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(1px 1px at 12% 28%, #fff 99%, transparent),
+                radial-gradient(2px 2px at 83% 20%, #cbbcff 99%, transparent),
+                radial-gradient(1px 1px at 72% 75%, #fff 99%, transparent),
+                radial-gradient(2px 2px at 20% 82%, #85eaff 99%, transparent),
+                radial-gradient(1px 1px at 91% 57%, #fff 99%, transparent),
+                radial-gradient(1px 1px at 39% 12%, #ffacd8 99%, transparent);
+            background-size: 100% 100%;
+            animation: twinkle 4s ease-in-out infinite alternate;
         }
 
-        .toggle-password:hover { color: #fff; }
-        .form-options { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 5px 0 25px; font-size: .82rem; }
-        .remember { display: flex; align-items: center; gap: 8px; color: #b3b5cc; cursor: pointer; }
-        .remember input { width: 15px; height: 15px; margin: 0; accent-color: #9675ff; }
-        a { color: #b7a3ff; text-decoration: none; }
-        a:hover { color: #ddd2ff; text-decoration: underline; }
-
-        .submit-button {
-            width: 100%;
-            height: 52px;
-            border: 0;
-            border-radius: 12px;
-            color: white;
-            background: linear-gradient(100deg, #8056ed, #6859e8 55%, #5378ed);
-            box-shadow: 0 9px 24px rgba(105, 83, 231, .28);
-            font: inherit;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform .2s, box-shadow .2s, filter .2s;
+        main {
+            width: min(90%, 760px);
+            padding: clamp(2.5rem, 7vw, 5rem) 1.5rem;
+            text-align: center;
+            animation: arrive 1.2s cubic-bezier(.2,.8,.2,1) both;
         }
 
-        .submit-button:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 13px 30px rgba(105, 83, 231, .4); }
-        .submit-button:active { transform: translateY(0); }
-        .signup { margin: 25px 0 0; color: #a8abc6; text-align: center; font-size: .88rem; }
-
-        @keyframes arrive { from { opacity: 0; transform: translateY(22px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(22px, 28px); } }
-
-        @media (max-width: 480px) {
-            body { padding: 18px; }
-            .login-card { padding: 32px 25px; }
-            .orb { width: 190px; }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .65rem;
+            margin: 0 0 1.8rem;
+            color: #c8c1df;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            animation: fade-up .9s .25s both;
         }
+
+        .eyebrow::before, .eyebrow::after {
+            width: 24px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--pink));
+            content: "";
+        }
+        .eyebrow::after { transform: rotate(180deg); }
+
+        h1 {
+            margin: 0;
+            background: linear-gradient(110deg, #fff 12%, #ffb6df 42%, #c3b0ff 72%, #9cecff);
+            background-clip: text;
+            color: transparent;
+            font-size: clamp(4rem, 15vw, 9.5rem);
+            font-weight: 800;
+            letter-spacing: .08em;
+            line-height: 1;
+            text-indent: .08em;
+            filter: drop-shadow(0 0 28px rgba(202, 149, 255, .2));
+            animation: name-glow 5s ease-in-out infinite alternate, fade-up 1s .4s both;
+        }
+
+        .rule {
+            width: 76px;
+            height: 2px;
+            margin: 2rem auto 1.65rem;
+            border-radius: 9px;
+            background: linear-gradient(90deg, var(--cyan), var(--pink), var(--lavender));
+            box-shadow: 0 0 18px rgba(255, 142, 203, .75);
+            animation: widen 1s .75s both;
+        }
+
+        .message {
+            margin: 0;
+            color: #eeebf7;
+            font-size: clamp(1.1rem, 3vw, 1.55rem);
+            font-weight: 400;
+            letter-spacing: .025em;
+            animation: fade-up 1s .7s both;
+        }
+
+        .note {
+            margin: 1rem 0 0;
+            color: #a8a3bb;
+            font-size: .95rem;
+            letter-spacing: .03em;
+            animation: fade-up 1s .9s both;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: #fff0bb;
+            font-size: 1.1rem;
+            text-shadow: 0 0 16px #ffd887;
+            animation: sparkle 2.6s ease-in-out infinite;
+        }
+        .sparkle.one { top: 25%; left: 23%; }
+        .sparkle.two { top: 33%; right: 22%; animation-delay: .8s; font-size: .8rem; }
+        .sparkle.three { bottom: 25%; left: 29%; animation-delay: 1.4s; font-size: .7rem; }
+
+        @keyframes arrive { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes orbit { to { transform: rotate(360deg); } }
+        @keyframes breathe { from { opacity: .45; transform: scale(.8) rotate(0); } to { opacity: .9; transform: scale(1.12) rotate(35deg); } }
+        @keyframes twinkle { from { opacity: .42; } to { opacity: 1; } }
+        @keyframes sparkle { 0%, 100% { opacity: .25; transform: scale(.7) rotate(0); } 50% { opacity: 1; transform: scale(1.25) rotate(18deg); } }
+        @keyframes widen { from { opacity: 0; transform: scaleX(.2); } to { opacity: 1; transform: scaleX(1); } }
+        @keyframes name-glow { from { filter: drop-shadow(0 0 18px rgba(202,149,255,.16)); } to { filter: drop-shadow(0 0 34px rgba(202,149,255,.4)); } }
 
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
@@ -145,49 +179,19 @@
     </style>
 </head>
 <body>
-    <div class="orb orb-one" aria-hidden="true"></div>
-    <div class="orb orb-two" aria-hidden="true"></div>
-
-    <main class="login-card">
-        <div class="brand-mark" aria-hidden="true">✦</div>
-        <h1>Welcome back</h1>
-        <p class="intro">Sign in to continue to your account.</p>
-
-        <form action="#" method="get">
-            <div class="field">
-                <label for="email">Email address</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-            </div>
-
-            <div class="field">
-                <label for="password">Password</label>
-                <div class="input-wrap">
-                    <input class="password-input" id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
-                    <button class="toggle-password" type="button" aria-controls="password" aria-pressed="false">Show</button>
-                </div>
-            </div>
-
-            <div class="form-options">
-                <label class="remember"><input type="checkbox" name="remember"> Remember me</label>
-                <a href="#forgot-password">Forgot password?</a>
-            </div>
-
-            <button class="submit-button" type="submit">Sign in</button>
-        </form>
-
-        <p class="signup">New here? <a href="#signup">Create an account</a></p>
-    </main>
-
-    <script>
-        const passwordInput = document.querySelector('#password');
-        const toggleButton = document.querySelector('.toggle-password');
-
-        toggleButton.addEventListener('click', () => {
-            const showingPassword = passwordInput.type === 'password';
-            passwordInput.type = showingPassword ? 'text' : 'password';
-            toggleButton.textContent = showingPassword ? 'Hide' : 'Show';
-            toggleButton.setAttribute('aria-pressed', String(showingPassword));
-        });
-    </script>
+    <div class="scene">
+        <div class="stars" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <span class="sparkle one" aria-hidden="true">✦</span>
+        <span class="sparkle two" aria-hidden="true">✧</span>
+        <span class="sparkle three" aria-hidden="true">✦</span>
+        <main>
+            <p class="eyebrow">A little moment just for you</p>
+            <h1>SHIVAM</h1>
+            <div class="rule" aria-hidden="true"></div>
+            <p class="message">Wishing you a day filled with joy, warmth, and wonderful surprises.</p>
+            <p class="note">You deserve all the beautiful things life has to offer ✨</p>
+        </main>
+    </div>
 </body>
 </html>
